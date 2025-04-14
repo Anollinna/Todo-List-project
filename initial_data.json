@@ -1,0 +1,38 @@
+[
+  {
+    "model": "task.tag",
+    "pk": 1,
+    "fields": {
+      "name": "Work"
+    }
+  },
+  {
+    "model": "task.tag",
+    "pk": 2,
+    "fields": {
+      "name": "Personal"
+    }
+  },
+  {
+    "model": "task.task",
+    "pk": 1,
+    "fields": {
+      "content": "Finish Django project",
+      "created_at": "2025-04-13T10:00:00Z",
+      "deadline": "2025-04-20T23:59:00Z",
+      "is_done": false,
+      "tags": [1]
+    }
+  },
+  {
+    "model": "task.task",
+    "pk": 2,
+    "fields": {
+      "content": "Buy groceries",
+      "created_at": "2025-04-13T12:00:00Z",
+      "deadline": null,
+      "is_done": true,
+      "tags": [2]
+    }
+  }
+]
