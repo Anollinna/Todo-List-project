@@ -1,4 +1,8 @@
-<ul>
-  <li><a href="{% url 'task:task-list' %}">Home</a></li>
-  <li><a href="{% url 'task:tag-list' %}">Tags</a></li>
-</ul>
+<div class="nav flex-column nav-pills">
+  <a href="{% url 'task:task-list' %}" class="nav-link {% if request.path == '/tasks/' %}active{% endif %}">
+    🏠 Home
+  </a>
+  <a href="{% url 'task:tag-list' %}" class="nav-link {% if request.path == '/tags/' %}active{% endif %}">
+    🏷️ Tags
+  </a>
+</div>

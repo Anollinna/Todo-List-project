@@ -1,31 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Todo List</h1>
-  <a href="{% url 'task:task-create' %}">Add new Task</a>
-  <ul>
-    {% for task in tasks %}
-      <li>
-        <strong>{{ task.content }}</strong><br>
-        Created: {{ task.created_at }}<br>
-        {% if task.deadline %} Deadline: {{ task.deadline }}<br>{% endif %}
-        Status: {% if task.is_done %}Done{% else %}Not done{% endif %}<br>
-        Tags:
-        {% for tag in task.tags.all %}
-          {{ tag.name }}{% if not forloop.last %}, {% endif %}
-        {% empty %}
-          No tags
-        {% endfor %}<br>
 
-        <a href="{% url 'task:task-update' task.pk %}">Edit</a>
-        <a href="{% url 'task:task-delete' task.pk %}">Delete</a>
-        <form action="{% url 'task:task-status' task.pk %}" method="post" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit">
-            {% if task.is_done %}Undo{% else %}Complete{% endif %}
-          </button>
-        </form>
-      </li>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Todo List</h1>
+    <a href="{% url 'task:task-create' %}" class="btn btn-primary">
+      Add new Task
+    </a>
+  </div>
+
+  <div class="list-group">
+    {% for task in tasks %}
+      <div class="list-group-item mb-3">
+        <h5 class="mb-1">{{ task.content }}</h5>
+        <p class="mb-1">
+          <small>🕓 Created: {{ task.created_at }}</small><br>
+          {% if task.deadline %}
+            <small>📅 Deadline: {{ task.deadline }}</small><br>
+          {% endif %}
+          <strong>Status:</strong>
+          {% if task.is_done %}
+            <span class="badge badge-success">Done</span>
+          {% else %}
+            <span class="badge badge-warning">Not done</span>
+          {% endif %}
+        </p>
+
+        <p class="mb-2">
+          <strong>Tags:</strong>
+          {% for tag in task.tags.all %}
+            <span class="badge badge-info">{{ tag.name }}</span>
+          {% empty %}
+            <span class="text-muted">No tags</span>
+          {% endfor %}
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'task:task-update' task.pk %}" class="btn btn-sm btn-outline-secondary mr-2">Edit</a>
+          <a href="{% url 'task:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger mr-2">Delete</a>
+          <form action="{% url 'task:task-status' task.pk %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-outline-success">
+              {% if task.is_done %}Undo{% else %}Complete{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
